@@ -211,6 +211,8 @@ function drawScene() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, currentMesh.indexBuffer);
     gl.drawElements(gl.TRIANGLES, currentMesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
+    //draw the floor here
+
     if ( draw_light ) {
         gl.useProgram(lightProgram);
         gl.uniformMatrix4fv(lightProgram.pMatrixUniform, false, pMatrix);
