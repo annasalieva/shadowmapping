@@ -27,11 +27,7 @@ function initMesh() {
         new OBJ.Mesh(simple_cube_str),
         new OBJ.Mesh(buildings_str),
         new OBJ.Mesh(house_str),
-<<<<<<< HEAD
-        new OBJ.Mesh(cup_str),
-=======
         new OBJ.Mesh(floor_str)
->>>>>>> newBranch
     ];
     OBJ.initMeshBuffers(gl, meshes[0]);
     OBJ.initMeshBuffers(gl, meshes[1]);
@@ -47,11 +43,7 @@ function initMesh() {
     	mat4.create(), //cube
     	mat4.create(), //buildings
     	mat4.create(), //house
-<<<<<<< HEAD
-        mat4.create(), //cup
-=======
         mat4.create(), //floor
->>>>>>> newBranch
     ];
 
     // Set per-object transforms to make them better fitting the viewport
@@ -76,10 +68,6 @@ function initMesh() {
     mat4.rotateY(meshTransforms[4], 1);
 
     mat4.identity(meshTransforms[5]);
-<<<<<<< HEAD
-    mat4.scale(meshTransforms[5], [.5,.5,.5]);
-=======
->>>>>>> newBranch
     currentTransform = meshTransforms[0];
 }
 
@@ -255,9 +243,8 @@ function drawScene() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, currentMesh.indexBuffer);
     gl.drawElements(gl.TRIANGLES, currentMesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
-<<<<<<< HEAD
+
     //draw the floor here
-=======
 //set uniform variables before every draw object
 //drawing floor
 /*
@@ -286,7 +273,7 @@ function drawScene() {
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, meshes[5].indexBuffer);
     gl.drawElements(gl.TRIANGLES, meshes[5].indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
->>>>>>> newBranch
+
 
     if ( draw_light ) {
         gl.useProgram(lightProgram);
