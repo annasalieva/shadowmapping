@@ -14,7 +14,6 @@ function initGL(canvas) {
     gl = WebGLDebugUtils.makeDebugContext(gl, throwOnGLError, validateNoneOfTheArgsAreUndefined);
 }
 
-
 /*
  * Initializing object geometries
  */
@@ -27,13 +26,15 @@ function initMesh() {
         new OBJ.Mesh(bunny_mesh_str),
         new OBJ.Mesh(simple_cube_str),
         new OBJ.Mesh(buildings_str),
-        new OBJ.Mesh(house_str)
+        new OBJ.Mesh(house_str),
+        new OBJ.Mesh(floor_str)
     ];
     OBJ.initMeshBuffers(gl, meshes[0]);
     OBJ.initMeshBuffers(gl, meshes[1]);
     OBJ.initMeshBuffers(gl, meshes[2]);
     OBJ.initMeshBuffers(gl, meshes[3]);
     OBJ.initMeshBuffers(gl, meshes[4]);
+    OBJ.initMeshBuffers(gl, meshes[5]);
     currentMesh = meshes[0];
 
     meshTransforms = [
@@ -42,6 +43,7 @@ function initMesh() {
     	mat4.create(), //cube
     	mat4.create(), //buildings
     	mat4.create(), //house
+        mat4.create(), //floor
     ];
 
     // Set per-object transforms to make them better fitting the viewport
@@ -64,6 +66,7 @@ function initMesh() {
     mat4.translate(meshTransforms[4], [-100, 25, -10]);
     mat4.rotateY(meshTransforms[4], 1);
 
+    mat4.identity(meshTransforms[5]);
     currentTransform = meshTransforms[0];
 }
 
@@ -202,6 +205,7 @@ function drawScene() {
     gl.useProgram(currentProgram);
     setUniforms(currentProgram);   
 
+
     gl.bindBuffer(gl.ARRAY_BUFFER, currentMesh.vertexBuffer);
     gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, currentMesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
@@ -210,6 +214,7 @@ function drawScene() {
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, currentMesh.indexBuffer);
     gl.drawElements(gl.TRIANGLES, currentMesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+
 
     if ( draw_light ) {
         gl.useProgram(lightProgram);
