@@ -27,13 +27,15 @@ function initMesh() {
         new OBJ.Mesh(bunny_mesh_str),
         new OBJ.Mesh(simple_cube_str),
         new OBJ.Mesh(buildings_str),
-        new OBJ.Mesh(house_str)
+        new OBJ.Mesh(house_str),
+        new OBJ.Mesh(cup_str),
     ];
     OBJ.initMeshBuffers(gl, meshes[0]);
     OBJ.initMeshBuffers(gl, meshes[1]);
     OBJ.initMeshBuffers(gl, meshes[2]);
     OBJ.initMeshBuffers(gl, meshes[3]);
     OBJ.initMeshBuffers(gl, meshes[4]);
+    OBJ.initMeshBuffers(gl, meshes[5]);
     currentMesh = meshes[0];
 
     meshTransforms = [
@@ -42,6 +44,7 @@ function initMesh() {
     	mat4.create(), //cube
     	mat4.create(), //buildings
     	mat4.create(), //house
+        mat4.create(), //cup
     ];
 
     // Set per-object transforms to make them better fitting the viewport
@@ -64,8 +67,12 @@ function initMesh() {
     mat4.translate(meshTransforms[4], [-100, 25, -10]);
     mat4.rotateY(meshTransforms[4], 1);
 
+    mat4.identity(meshTransforms[5]);
+    mat4.scale(meshTransforms[5], [.5,.5,.5]);
     currentTransform = meshTransforms[0];
 }
+
+
 
 
 /*

@@ -1,7 +1,8 @@
-# Blender v2.67 (sub 1) OBJ File: 'Cup_Made_By_Tyro_Smith.blend'
-# www.blender.org
-mtllib Cup_Made_By_Tyro_Smith.mtl
-o Cylinder_Cylinder.003
+// Blender v2.67 (sub 1) OBJ File: 'Cup_Made_By_Tyro_Smith.blend'
+// www.blender.org
+// mtllib Cup_Made_By_Tyro_Smith.mtl
+
+var cup_str = `
 v -0.000000 4.315307 -1.063352
 v 0.207450 4.315307 -1.042920
 v 0.152580 0.003914 -0.767069
@@ -186,8 +187,8 @@ v -0.294758 0.095241 0.711608
 v 0.150266 0.095241 0.755440
 v -0.150267 0.095241 0.755440
 v -0.000000 0.095241 0.770240
-usemtl Material.003
-s 1
+
+
 f 1 2 3 4
 f 2 10 11 3
 f 10 19 20 11
@@ -449,11 +450,12 @@ f 178 181 180
 f 180 181 183
 f 180 183 182
 f 182 183 184
-o Plane
+
 v 9.443947 0.000000 9.443947
 v -9.443947 0.000000 9.443947
 v 9.443947 0.000000 -9.443947
 v -9.443947 0.000000 -9.443947
-usemtl Material.002
-s off
+
+
 f 186 185 187 188
+`
