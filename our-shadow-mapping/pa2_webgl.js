@@ -14,7 +14,6 @@ function initGL(canvas) {
     gl = WebGLDebugUtils.makeDebugContext(gl, throwOnGLError, validateNoneOfTheArgsAreUndefined);
 }
 
-
 /*
  * Initializing object geometries
  */
@@ -28,7 +27,11 @@ function initMesh() {
         new OBJ.Mesh(simple_cube_str),
         new OBJ.Mesh(buildings_str),
         new OBJ.Mesh(house_str),
+<<<<<<< HEAD
         new OBJ.Mesh(cup_str),
+=======
+        new OBJ.Mesh(floor_str)
+>>>>>>> newBranch
     ];
     OBJ.initMeshBuffers(gl, meshes[0]);
     OBJ.initMeshBuffers(gl, meshes[1]);
@@ -44,7 +47,11 @@ function initMesh() {
     	mat4.create(), //cube
     	mat4.create(), //buildings
     	mat4.create(), //house
+<<<<<<< HEAD
         mat4.create(), //cup
+=======
+        mat4.create(), //floor
+>>>>>>> newBranch
     ];
 
     // Set per-object transforms to make them better fitting the viewport
@@ -53,10 +60,11 @@ function initMesh() {
     mat4.scale(meshTransforms[0], [0.15, 0.15, 0.15]);        
 
     mat4.identity(meshTransforms[1]);
-    mat4.translate(meshTransforms[1], [0.5, 0, 0]);
+    mat4.translate(meshTransforms[1], [0.5, .5, 0]);
 
     mat4.identity(meshTransforms[2]);
     mat4.scale(meshTransforms[2], [.75,.75,.75]);
+    mat4.translate(meshTransforms[2], [0,2,0])
 
     mat4.identity(meshTransforms[3]);
     mat4.scale(meshTransforms[3], [.002,.002,.002]);
@@ -68,7 +76,10 @@ function initMesh() {
     mat4.rotateY(meshTransforms[4], 1);
 
     mat4.identity(meshTransforms[5]);
+<<<<<<< HEAD
     mat4.scale(meshTransforms[5], [.5,.5,.5]);
+=======
+>>>>>>> newBranch
     currentTransform = meshTransforms[0];
 }
 
@@ -141,13 +152,38 @@ function initShaders() {
     lightProgram.pMatrixUniform = gl.getUniformLocation(lightProgram, "uPMatrix");
 }
 
+var floorPositions = [
+  // Bottom Left (0)
+  -30.0, 0.0, 30.0,
+  // Bottom Right (1)
+  30.0, 0.0, 30.0,
+  // Top Right (2)
+  30.0, 0.0, -30.0,
+  // Top Left (3)
+  -30.0, 0.0, -30.0
+]
+var floorIndices = [
+  // Front face
+  0, 1, 2, 0, 2, 3
+]
+
 
 /*
  * Initializing buffers
  */
 var lightPositionBuffer;
+var floorIndexBuffer;
+var floorPositionBuffer;
 function initBuffers() {
     lightPositionBuffer = gl.createBuffer();
+
+    floorIndexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, floorIndexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(floorIndices), gl.STATIC_DRAW);
+
+    var floorIndexBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, floorIndexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(floorIndices), gl.STATIC_DRAW);
 }
 
 
@@ -209,6 +245,7 @@ function drawScene() {
     gl.useProgram(currentProgram);
     setUniforms(currentProgram);   
 
+
     gl.bindBuffer(gl.ARRAY_BUFFER, currentMesh.vertexBuffer);
     gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, currentMesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
@@ -218,7 +255,38 @@ function drawScene() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, currentMesh.indexBuffer);
     gl.drawElements(gl.TRIANGLES, currentMesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
+<<<<<<< HEAD
     //draw the floor here
+=======
+//set uniform variables before every draw object
+//drawing floor
+/*
+	mat4.identity(lightMatrix);
+    mat4.translate(lightMatrix, [0.0, -1.0, -7.0]);
+    mat4.rotateX(lightMatrix, 0.3);
+    mat4.rotateY(lightMatrix, rotY_light);
+
+    lightPos.set([0.0, 2.5, 3.0]);
+    mat4.multiplyVec3(lightMatrix, lightPos);
+*/
+    mat4.identity(mvMatrix);
+    mat4.translate(mvMatrix, [0.0, -1.0, -7.0]);
+    mat4.rotateX(mvMatrix, 0.3);
+    mat4.rotateY(mvMatrix, rotY);
+    mat4.multiply(mvMatrix, meshTransforms[5]);
+
+    gl.useProgram(currentProgram);
+    setUniforms(currentProgram);  
+
+	gl.bindBuffer(gl.ARRAY_BUFFER, meshes[5].vertexBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexPositionAttribute, meshes[5].vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, meshes[5].normalBuffer);
+    gl.vertexAttribPointer(currentProgram.vertexNormalAttribute, meshes[5].normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, meshes[5].indexBuffer);
+    gl.drawElements(gl.TRIANGLES, meshes[5].indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+>>>>>>> newBranch
 
     if ( draw_light ) {
         gl.useProgram(lightProgram);
